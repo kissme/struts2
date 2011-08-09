@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.custom.i18n.resources" value="application"></constant>
+<!-- 	<constant name="struts.action.extension" value="action,do,xx"></constant> -->
+	<package name="struts2" extends="struts-default" >
+	 	<interceptors>
+	 		<interceptor name="methodIntercepter" class="com.lxitedu.web.StrutsInteretor">
+	 			<param name="includeMethods">queryUser</param>
+	 		</interceptor>
+	 		<interceptor-stack name="myStack">
+	 			<interceptor-ref name="defaultStack"></interceptor-ref>
+	 			<interceptor-ref name="methodIntercepter"></interceptor-ref>
+	 		</interceptor-stack>
+	 	</interceptors>
+	 	<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+	 	<action name="userAdd" class="com.lxitedu.web.UserAction" method="queryUserInfo">
+			<result>/userAdd.jsp</result>
+	 		<!-- <interceptor-ref name="myStack"></interceptor-ref> -->
+		</action> 
+		<action name="insert_*" class="com.lxitedu.web.UserAction" method="{1}">
+			<result name="input">/userAdd.jsp</result>
+			<result>/query.action</result> 
+		</action> 
+		<action name="query" class="com.lxitedu.web.UserAction" method="queryUser">
+			<result>/userQuery.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="update" class="com.lxitedu.web.UserAction" method="queryUserForUpdate">
+			<result>/userUpdate.jsp</result>
+		</action>
+		<action name="delete" class="com.lxitedu.web.UserAction" method="delUser">
+			<result>/query.action</result>
+		</action>
+		
+		<action name="userUpdate_*" class="com.lxitedu.web.UserAction" method="{1}">
+			<result>/query.action</result>
+			<result name="input">/userUpdate.jsp</result>
+		</action>
+		
+		<action name="*">
+			<result>/{1}.jsp</result>
+		</action>
+
+	</package>
+</struts>

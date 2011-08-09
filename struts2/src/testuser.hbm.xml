@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+	PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.lxitedu.model.bean.TestUser" table="testuser" >
+	<id name="userID">
+		<generator class="native"></generator>
+	</id>
+	<property name="name"></property>
+	<list name="list" table="user_list">
+		<key column="userID"></key>
+		<list-index column="id"></list-index>
+		<element type="string" column="value"></element>
+	</list>
+	
+	<set name="set" table="user_set">
+		<key column="userID"></key>
+		<element type="string" column="value"></element>
+	</set>
+	
+	<map name="map" table="user_map">
+		<key column="userID"></key>
+		<map-key type="string" column="id"></map-key>
+		<element type="string" column="value"></element>
+	</map>
+	
+	<bag name="bag" table="user_bag">
+		<key column="userID"></key>
+		<element type="string" column="value"></element>
+	</bag>
+	</class>
+	
+</hibernate-mapping>

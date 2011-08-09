@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="user">
+	<typeAlias alias="hobby" type="com.lxitedu.model.bean.Hobby"/>
+	<typeAlias alias="nation" type="com.lxitedu.model.bean.Nation"/>
+	<typeAlias alias="user" type="com.lxitedu.model.bean.User"/>
+	<resultMap class="user" id="userResult">
+		<result property="userID" column="userID"/>
+		<result property="userName" column="userName"/>
+		<result property="password" column="password"/>
+		<result property="sex" column="sex"/>
+		<result property="hobby" column="hobby"/>
+		<result property="nation" column="nation"/>
+		<result property="birthday" column="birthday"/>
+	</resultMap>
+	<resultMap class="hobby" id="hobbyResult">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	<resultMap class="nation" id="nationResult">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="queryHobby" resultClass="hobby">
+		select id,name from hobby
+	</select>
+	
+	<select id="querynation" resultClass="nation">
+		select id,name from nation
+	</select>
+	
+	<insert id="userAdd">
+		insert into usertable(userName,password,sex,hobby,nation,birthday) values(#userName#,#password#,#sex#,#hobby#,#nation#,#birthday#)
+	</insert>
+	
+	<select id="userquery" resultClass="user">
+		select userID,userName,password,sex,hobby,nation,birthday  from usertable
+	</select>
+	<select id="userqueryID" resultClass="user">
+		select userID,userName,password,sex,hobby,nation,birthday  from usertable where userID=#userID#
+	</select>
+	<delete id="userdel" >
+		delete  from usertable where userID=#userID# 
+	</delete>
+	
+	<update id="userUpdate">
+	 	update usertable set userName=#userName#,sex=#sex#,hobby=#hobby#,nation=#nation# where userID=#userID#
+	</update>
+	
+</sqlMap>
